@@ -142,10 +142,11 @@ public class RNMobileDeviceManagerModule extends ReactContextBaseJavaModule impl
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return false;
         }
+        return true;
 
         // Else, we look at restrictions manager and see if there's any app config settings in there
-        RestrictionsManager restrictionsManager = (RestrictionsManager) getReactApplicationContext().getSystemService(Context.RESTRICTIONS_SERVICE);
-        return restrictionsManager.getApplicationRestrictions().size() > 0;
+        // RestrictionsManager restrictionsManager = (RestrictionsManager) getReactApplicationContext().getSystemService(Context.RESTRICTIONS_SERVICE);
+        // return restrictionsManager.getApplicationRestrictions().size() > 0;
     }
 
     @ReactMethod
@@ -159,6 +160,8 @@ public class RNMobileDeviceManagerModule extends ReactContextBaseJavaModule impl
             RestrictionsManager restrictionsManager = (RestrictionsManager) getReactApplicationContext().getSystemService(Context.RESTRICTIONS_SERVICE);
             Bundle appRestrictions = restrictionsManager.getApplicationRestrictions();
             WritableNativeMap data = new WritableNativeMap();
+            String TestKey = "TestKey";
+             data.putString(TestKey, "TestKeyValue");
             for (String key : appRestrictions.keySet()){
                 data.putString(key, appRestrictions.getString(key));
             }
